@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python baseball_dashboard/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - baseball_network
+  
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: baseball
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test123
+    networks:
+      - baseball_network
+
+volumes:
+  postgres_data:
+
+networks:
+  baseball_network:
