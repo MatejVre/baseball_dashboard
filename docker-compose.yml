@@ -14,11 +14,14 @@ services:
       - baseball_network
   
   db:
-    image: postgres:13
+    image: postgres:17
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init_db:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_DB: baseball
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test123
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     networks:
       - baseball_network
 
